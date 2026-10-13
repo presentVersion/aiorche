@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>AI Agent Orchestra — You Conduct. AI Executes. | Official Event Brochure</title>
+  <meta name="description" content="A three-day hands-on AI building experience where participants turn ideas into agents, agents into actions, and actions into solutions. Official digital 3D interactive brochure.">
+
+  <!-- Typography: Syne, Fraunces, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       THEME SYSTEM & DESIGN TOKENS
+       ========================================================================== */
+    :root {
+      --book-width: 1180px;
+      --book-height: 730px;
+      --page-radius: 8px;
+      --ease-flip: cubic-bezier(0.25, 1, 0.35, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      --font-display: 'Syne', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    /* DARK THEME */
+    html[data-theme="dark"] {
+      --bg-app: #080A0E;
+      --bg-header: rgba(13, 17, 23, 0.94);
+      --page-bg: #0F131A;
+      --tray-bg: #090C11;
+      --text-primary: #F2EDE4;
+      --text-secondary: #B8B0A5;
+      --text-muted: #847A70;
+      
+      --accent-warm: #D9883B;
+      --accent-hover: #EE9E4E;
+      --accent-subtle: rgba(217, 136, 59, 0.12);
+      --accent-border: rgba(217, 136, 59, 0.35);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-medium: rgba(255, 255, 255, 0.14);
+      --card-surface: #141922;
+      --card-surface-elevated: #1B222E;
+      --code-surface: #090C10;
+      
+      --tag-bg: #241D17;
+      --tag-color: #E8A15A;
+      --tag-border: #4A3522;
+      
+      --book-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.9);
+      --crease-shadow: rgba(0, 0, 0, 0.85);
+    }
+
+    /* LIGHT THEME */
+    html[data-theme="light"] {
+      --bg-app: #EDE7DE;
+      --bg-header: rgba(247, 243, 236, 0.95);
+      --page-bg: #FAF7F0;
+      --tray-bg: #DFD7CC;
+      --text-primary: #1C1510;
+      --text-secondary: #54493E;
+      --text-muted: #807468;
+      
+      --accent-warm: #B25E1B;
+      --accent-hover: #964D14;
+      --accent-subtle: rgba(178, 94, 27, 0.09);
+      --accent-border: rgba(178, 94, 27, 0.3);
+      
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-medium: rgba(0, 0, 0, 0.15);
+      --card-surface: #F2EDE4;
+      --card-surface-elevated: #E8E2D7;
+      --code-surface: #E8E3D8;
+      
+      --tag-bg: #EFE6D9;
+      --tag-color: #7A3E0F;
+      --tag-border: #D1BAA0;
+      
+      --book-shadow: 0 30px 60px -12px rgba(45, 30, 20, 0.22);
+      --crease-shadow: rgba(40, 25, 15, 0.35);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-app);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.68;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    ::selection {
+      background: var(--accent-warm);
+      color: #FFFFFF;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-app); }
+    ::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 3px; }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      background: var(--bg-header);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-warm);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.1em;
+      color: var(--accent-warm);
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: var(--card-surface-elevated);
+      color: var(--accent-warm);
+      border-color: var(--accent-border);
+    }
+
+    .btn-header svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* ==========================================================================
+       VIEWPORT & 3D BOOK STAGE
+       ========================================================================== */
+    .viewport-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px 85px 20px;
+      perspective: 2600px;
+      perspective-origin: 50% 50%;
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100vh - 130px);
+    }
+
+    .book-chassis {
+      width: 100%;
+      max-width: var(--book-width);
+      height: var(--book-height);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease-out;
+      z-index: 10;
+    }
+
+    /* Hardcover Book Tray Base */
+    .book-tray {
+      position: absolute;
+      inset: 0;
+      background-color: var(--tray-bg);
+      border-radius: var(--page-radius);
+      box-shadow: var(--book-shadow), 0 0 0 1px var(--border-subtle);
+      z-index: 1;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .tray-left-inside {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+      border-right: 1px solid var(--border-subtle);
+      background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0.06) 100%);
+    }
+
+    .tray-left-inside h3 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .tray-left-inside p {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .spine-crease {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 32px;
+      transform: translateX(-50%);
+      background: linear-gradient(to right,
+        rgba(0,0,0,0.15) 0%,
+        var(--crease-shadow) 50%,
+        rgba(0,0,0,0.15) 100%
+      );
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.7;
+    }
+
+    /* ==========================================================================
+       6 PHYSICAL DOUBLE-SIDED SHEETS (12 PAGES TOTAL)
+       ========================================================================== */
+    .paper-sheet {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 0.85s var(--ease-flip);
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .paper-sheet.flipped {
+      transform: rotateY(-180deg);
+    }
+
+    .page-face {
+      position: absolute;
+      inset: 0;
+      background-color: var(--page-bg) !important;
+      color: var(--text-primary);
+      border-radius: 0 var(--page-radius) var(--page-radius) 0;
+      box-shadow: inset 0 0 0 1px var(--border-subtle);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 34px 38px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .page-face.page-back {
+      transform: rotateY(180deg);
+      border-radius: var(--page-radius) 0 0 var(--page-radius);
+    }
+
+    .page-turn-shade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.2) 0%, transparent 60%);
+      pointer-events: none;
+      opacity: 0.12;
+    }
+    .paper-sheet.flipped .page-turn-shade {
+      background: linear-gradient(to left, rgba(0,0,0,0.2) 0%, transparent 60%);
+    }
+
+    /* ==========================================================================
+       PAGE HEADER, CONTENT & LARGER BODY TYPOGRAPHY
+       ========================================================================== */
+    .page-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .meta-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-tag .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-warm);
+    }
+
+    .page-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .page-footer-folio {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      margin-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .display-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .display-title.hero {
+      font-size: clamp(34px, 3.8vw, 48px);
+    }
+    .display-title.section {
+      font-size: clamp(23px, 2.3vw, 31px);
+    }
+
+    .tagline-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(17px, 1.6vw, 21px);
+      color: var(--accent-warm);
+      line-height: 1.35;
+      margin-bottom: 14px;
+    }
+
+    .body-lead {
+      font-size: 14.5px;
+      line-height: 1.68;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .body-copy {
+      font-size: 13.5px;
+      line-height: 1.68;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--tag-color);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .editorial-quote {
+      position: relative;
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent-warm);
+      background: var(--accent-subtle);
+      border-radius: 0 4px 4px 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin: 12px 0;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .matrix-card {
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .matrix-card h4 {
+      font-family: var(--font-display);
+      font-size: 12px;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .matrix-card p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+      font-size: 12.5px;
+    }
+    .editorial-table tr {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .editorial-table th {
+      text-align: left;
+      padding: 7px 4px;
+      color: var(--accent-warm);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+    }
+    .editorial-table td {
+      padding: 7px 4px;
+      vertical-align: top;
+    }
+    .editorial-table .col-highlight {
+      font-family: var(--font-mono);
+      color: var(--accent-warm);
+      white-space: nowrap;
+      font-size: 11px;
+    }
+
+    .pipeline-stepper {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin: 10px 0;
+    }
+    .pipeline-step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pipeline-step-item:hover, .pipeline-step-item.active {
+      border-color: var(--accent-warm);
+      background: var(--card-surface-elevated);
+    }
+    .pipeline-num {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-border);
+      color: var(--accent-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+    }
+    .pipeline-text { flex: 1; }
+    .pipeline-title { font-weight: 600; font-size: 11.5px; color: var(--text-primary); }
+    .pipeline-desc { font-size: 10.5px; color: var(--text-muted); }
+
+    .pipeline-display-terminal {
+      background: var(--code-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-warm);
+      min-height: 85px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .logistics-card {
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .logistics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .logistics-item span {
+      display: block;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .logistics-item strong {
+      color: var(--text-primary);
+    }
+
+    /* ==========================================================================
+       STICKER PEEL INTERACTIVE COMPONENT CSS (FROM REACT BITS)
+       ========================================================================== */
+    .sticker-peel-slot {
+      position: absolute;
+      right: 20px;
+      top: 16px;
+      width: 140px;
+      height: 140px;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .sticker-peel {
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .sticker-peel-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .sticker-peel-hit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      pointer-events: auto;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      cursor: grab;
+    }
+
+    /* ==========================================================================
+       BOTTOM CONTROLS BAR
+       ========================================================================== */
+    .app-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 28px;
+      background: var(--bg-header);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover:not(:disabled) {
+      background: var(--card-surface-elevated);
+      color: var(--accent-warm);
+      border-color: var(--accent-border);
+    }
+    .btn-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .btn-nav svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+    }
+
+    .spread-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+    .spread-indicator .curr-page-text {
+      color: var(--accent-warm);
+      font-weight: 700;
+    }
+
+    .scrubber-track {
+      width: 180px;
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .scrubber-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--accent-warm);
+      width: 8.33%;
+      border-radius: 2px;
+      transition: width 0.35s ease;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .kbd-hint {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .kbd-hint kbd {
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 9.5px;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       TABLE OF CONTENTS (DRAWER)
+       ========================================================================== */
+    .toc-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .toc-modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .toc-card {
+      width: 90%;
+      max-width: 840px;
+      max-height: 80vh;
+      background: var(--page-bg);
+      border: 1px solid var(--border-medium);
+      border-radius: 8px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .toc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .toc-header h3 {
+      font-family: var(--font-display);
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+    .btn-close-toc {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+    }
+    .btn-close-toc:hover {
+      color: var(--accent-warm);
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+      padding: 18px 22px;
+      overflow-y: auto;
+    }
+
+    .toc-item {
+      background: var(--card-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toc-item:hover, .toc-item.active {
+      border-color: var(--accent-warm);
+      background: var(--card-surface-elevated);
+    }
+    .toc-item-num {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--accent-warm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .toc-item-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--text-primary);
+      font-weight: 700;
+      margin: 2px 0;
+    }
+    .toc-item-desc {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       MOBILE OPTIMIZATION (VIEW ONE PAGE AT A TIME)
+       ========================================================================== */
+    @media (max-width: 768px) {
+      :root {
+        --book-width: 100%;
+        --book-height: auto;
+      }
+      .viewport-stage {
+        padding: 12px 10px 75px 10px;
+        min-height: auto;
+      }
+      .book-chassis {
+        max-width: 540px;
+        width: 100%;
+        height: auto;
+        min-height: 600px;
+      }
+      .book-tray {
+        display: none !important;
+      }
+      .spine-crease {
+        display: none !important;
+      }
+      .paper-sheet {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 600px;
+        transform: none !important;
+        transform-style: flat !important;
+        transition: none !important;
+      }
+      .page-face {
+        position: absolute !important;
+        inset: 0 !important;
+        border-radius: var(--page-radius) !important;
+        transform: none !important;
+        backface-visibility: visible !important;
+        padding: 24px 20px;
+        min-height: 600px;
+        display: none;
+      }
+      .page-face.mobile-active {
+        display: flex !important;
+        z-index: 20 !important;
+      }
+      .scrubber-track {
+        display: none;
+      }
+      .kbd-hint {
+        display: none;
+      }
+      .app-header {
+        padding: 10px 14px;
+      }
+      .brand-text span {
+        display: none;
+      }
+      .app-footer {
+        padding: 10px 14px;
+      }
+      .display-title.hero {
+        font-size: 28px;
+      }
+      .display-title.section {
+        font-size: 21px;
+      }
+      .sticker-peel-slot {
+        width: 110px;
+        height: 110px;
+        right: 12px;
+        top: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       APP HEADER
+       ========================================================================== -->
+  <header class="app-header" role="banner">
+    <a href="#cover" class="brand-group" id="btnGoHome" aria-label="AI Agent Orchestra Home">
+      <div class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M3 12h3m12 0h3M12 3v3m0 12v3"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>AI Agent Orchestra</h1>
+        <span>Coders’ Club · 12-Page Master Brief</span>
+      </div>
+    </a>
+
+    <div class="header-actions">
+      <!-- Dark / White Theme Switcher -->
+      <button class="btn-header" id="btnThemeToggle" title="Toggle between Dark and Light mode">
+        <svg viewBox="0 0 24 24" id="themeIcon">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <span id="themeLabel">Theme: Dark</span>
+      </button>
+
+      <button class="btn-header" id="btnAudioToggle" title="Toggle acoustic page turn audio">
+        <svg viewBox="0 0 24 24">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <span id="audioLabel">Sound: On</span>
+      </button>
+
+      <button class="btn-header" id="btnOpenToc" aria-haspopup="dialog" aria-expanded="false">
+        <svg viewBox="0 0 24 24">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <span>Index (12)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       VIEWPORT & 3D SPINED BOOK
+       ========================================================================== -->
+  <main class="viewport-stage" id="bookStage" role="main">
+    <div class="book-chassis" id="bookChassis">
+
+      <!-- Hardcover Tray Base with Center Spine Crease (Desktop view) -->
+      <div class="book-tray">
+        <div class="tray-left-inside">
+          <div class="brand-mark" style="width:40px; height:40px; margin-bottom:12px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M3 12h3m12 0h3M12 3v3m0 12v3"></path>
+            </svg>
+          </div>
+          <h3>AI Agent Orchestra</h3>
+          <p>You Conduct. AI Executes.</p>
+          <p style="margin-top:4px; font-size:10px; opacity:0.6;">Coders’ Club · Official Master Publication</p>
+        </div>
+        <div class="spine-crease"></div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 00:
+           Front: Page 1 (Front Cover)
+           Back:  Page 2 (Spread 1 Left: The Maestro's Score - Metaphor)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-0" data-sheet="0">
+        <!-- FRONT: PAGE 01 (COVER) -->
+        <div class="page-face page-front" data-page="1">
+          <div class="page-turn-shade"></div>
+          
+          <!-- WebGL StickerPeel Slot 1: "YOU CAN DO IT!" -->
+          <div class="sticker-peel-slot" id="sticker-slot-1"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>CODERS’ CLUB PRESENTS</span>
+            <span>ISSUE // 2026.1</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">A THREE-DAY HANDS-ON AI EXPERIENCE</div>
+            <h2 class="display-title hero">AI Agent<br>Orchestra</h2>
+            <p class="tagline-sub">You Conduct. AI Executes.</p>
+            <p class="body-lead">
+              A beginner-friendly journey from understanding AI-assisted creation to building and demonstrating a working agentic application that interprets inputs and performs verified real-world actions.
+            </p>
+
+            <div class="logistics-card">
+              <div class="logistics-grid">
+                <div class="logistics-item">
+                  <span>HOST ORGANISER</span>
+                  <strong>[CODERS’ CLUB]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>DATES & SCHEDULE</span>
+                  <strong style="color:var(--accent-warm);">[EVENT DATE — 3 DAYS]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>CAMPUS VENUE</span>
+                  <strong>[CAMPUS LAB / VENUE]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>REGISTRATION</span>
+                  <strong style="color:var(--accent-warm);">[REGISTRATION LINK]</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>TURN PAGE TO BEGIN →</span>
+            <span>PAGE 01</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 02 (SPREAD 1 LEFT: THE METAPHOR TABLE) -->
+        <div class="page-face page-back" data-page="2">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>THE CORE METAPHOR</span>
+            <span>SPREAD 01 // LEFT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">ORCHESTRA SYSTEM MAPPING</div>
+            <h2 class="display-title section">The Maestro’s<br>Score</h2>
+            <p class="body-lead">
+              We chose the name AI Agent Orchestra because real-world software requires harmony, timing, constraints, and deliberate human direction.
+            </p>
+
+            <table class="editorial-table">
+              <thead>
+                <tr>
+                  <th>ORCHESTRA</th>
+                  <th>TECHNICAL SYSTEM MEANING</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-highlight">Conductor</td>
+                  <td>The developer directing the agent and setting rules</td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">Score</td>
+                  <td>The instructions, system prompts, schemas, constraints</td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">Musicians</td>
+                  <td>The AI models, reasoning engines, and available tools</td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">Instruments</td>
+                  <td>Functions (classifying inputs, checking records, mutating state)</td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">Performance</td>
+                  <td>The working application responding to real scenarios</td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">Rehearsal</td>
+                  <td>Testing, debugging, handling ambiguous and unexpected inputs</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="editorial-quote">
+              "An orchestra does not generate noise; it plays a score under deliberate human direction. Your AI should do the same."
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>← PREVIOUS</span>
+            <span>PAGE 02</span>
+          </footer>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 01:
+           Front: Page 3 (Spread 1 Right: What is an AI Agent?)
+           Back:  Page 4 (Spread 2 Left: The Execution Pipeline)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-1" data-sheet="1">
+        <!-- FRONT: PAGE 03 (SPREAD 1 RIGHT: THE CONCEPT) -->
+        <div class="page-face page-front" data-page="3">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>CORE DEFINITIONS</span>
+            <span>SPREAD 01 // RIGHT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">BEYOND TEXT GENERATION</div>
+            <h2 class="display-title section">What is an<br>AI Agent?</h2>
+            <p class="body-lead">
+              An AI model, a chatbot, an agent, and an automation workflow are not interchangeable terms.
+            </p>
+
+            <div class="matrix-grid">
+              <div class="matrix-card">
+                <h4>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  A Chatbot
+                </h4>
+                <p>
+                  Primarily responds to messages with conversational text. It cannot query databases, call APIs, or mutate application state.
+                </p>
+              </div>
+              <div class="matrix-card" style="border-color: var(--accent-border);">
+                <h4 style="color:var(--accent-warm);">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  An Agent
+                </h4>
+                <p>
+                  Interprets input, evaluates constraints, selects permitted tools, and alters application state with verifiable results.
+                </p>
+              </div>
+            </div>
+
+            <div class="editorial-quote">
+              "AI is useful when its output changes what the system can do — safely, visibly, and verifiably."
+            </div>
+
+            <p class="body-copy">
+              The event becomes worthy of the name when participants demonstrate more than prompt answers: the system reads an input, decides what action is appropriate, executes an approved operation, and renders the result.
+            </p>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>THE CENTRAL PROMISE</span>
+            <span>PAGE 03</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 04 (SPREAD 2 LEFT: THE EXECUTION PIPELINE) -->
+        <div class="page-face page-back" data-page="4">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>EXECUTION PIPELINE</span>
+            <span>SPREAD 02 // LEFT</span>
+          </header>
+
+          <div class="page-content">
+            <span style="font-family: var(--font-mono); font-size: 10.5px; color: var(--accent-warm); text-transform: uppercase;">
+              Click any stage to inspect the live execution trace:
+            </span>
+
+            <div class="pipeline-stepper" id="pipelineStepper">
+              <div class="pipeline-step-item active" data-step="1">
+                <div class="pipeline-num">1</div>
+                <div class="pipeline-text">
+                  <div class="pipeline-title">HUMAN INPUT</div>
+                  <div class="pipeline-desc">User submits a message or incident report in chat</div>
+                </div>
+              </div>
+              <div class="pipeline-step-item" data-step="2">
+                <div class="pipeline-num">2</div>
+                <div class="pipeline-text">
+                  <div class="pipeline-title">AI INTERPRETATION</div>
+                  <div class="pipeline-desc">Model extracts structured parameters & intent schema</div>
+                </div>
+              </div>
+              <div class="pipeline-step-item" data-step="3">
+                <div class="pipeline-num">3</div>
+                <div class="pipeline-text">
+                  <div class="pipeline-title">VALIDATION & RULES</div>
+                  <div class="pipeline-desc">Application checks allowed values, IDs, safety policies</div>
+                </div>
+              </div>
+              <div class="pipeline-step-item" data-step="4">
+                <div class="pipeline-num">4</div>
+                <div class="pipeline-text">
+                  <div class="pipeline-title">APPROVED TOOL ACTION</div>
+                  <div class="pipeline-desc">Backend executes permitted internal mutation function</div>
+                </div>
+              </div>
+              <div class="pipeline-step-item" data-step="5">
+                <div class="pipeline-num">5</div>
+                <div class="pipeline-text">
+                  <div class="pipeline-title">VISIBLE RESULT</div>
+                  <div class="pipeline-desc">Local UI reflects new state, queue card, and alert badges</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pipeline-display-terminal" id="pipelineTerminal">// Stage 1: Input Captured
+{
+  "raw_input": "Sensor-04 reporting abnormal heat spike of 82°C",
+  "timestamp": "2026-10-13T21:40:00Z",
+  "source": "operator_console"
+}</div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>ACTION LOOP DYNAMICS</span>
+            <span>PAGE 04</span>
+          </footer>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 02:
+           Front: Page 5 (Spread 2 Right: The Three-Day Journey Overview)
+           Back:  Page 6 (Spread 3 Left: Day 01 / CREATE Brief)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-2" data-sheet="2">
+        <!-- FRONT: PAGE 05 (SPREAD 2 RIGHT: ROADMAP OVERVIEW) -->
+        <div class="page-face page-front" data-page="5">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>THREE-DAY CURRICULUM</span>
+            <span>SPREAD 02 // RIGHT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">THE THREE-DAY ARC</div>
+            <h2 class="display-title section">The Three-Day<br>Journey</h2>
+            <p class="body-lead">
+              The three days are meant to be a deliberate progression, introducing one capability layer at a time:
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:11px; margin: 6px 0;">
+              <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:11px; border-left:3px solid var(--accent-warm);">
+                <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); font-weight:700;">DAY 01: CREATE · THEME: BUILD THE STAGE</span>
+                <p style="font-size:12.5px; font-weight:600; color:var(--text-primary); margin:2px 0;">Website Recreation Challenge</p>
+                <p style="font-size:11px; color:var(--text-muted); margin:0;">Recreate a polished interface using AI coding tools (~3 hours proposed).</p>
+              </div>
+
+              <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:11px; border-left:3px solid var(--accent-warm);">
+                <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); font-weight:700;">DAY 02: CONNECT · THEME: INTRODUCE THE MUSICIANS</span>
+                <p style="font-size:12.5px; font-weight:600; color:var(--text-primary); margin:2px 0;">Minimum Working Agent Workflow</p>
+                <p style="font-size:11px; color:var(--text-muted); margin:0;">Understand message classification, tool functions, and API protection (~2 hours proposed).</p>
+              </div>
+
+              <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:11px; border-left:3px solid var(--accent-warm);">
+                <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); font-weight:700;">DAY 03: CONDUCT · THEME: CONDUCT THE ORCHESTRA</span>
+                <p style="font-size:12.5px; font-weight:600; color:var(--text-primary); margin:2px 0;">Live Challenge, Edge Cases & Demonstration</p>
+                <p style="font-size:11px; color:var(--text-muted); margin:0;">Build, test, adapt to a surprise scenario, and present live to judges (Full day).</p>
+              </div>
+            </div>
+
+            <div class="editorial-quote" style="margin-top:6px;">
+              "Participants are not expected to learn web development, model APIs, agent design, and backend hosting simultaneously."
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>CURRICULUM MAPPING</span>
+            <span>PAGE 05</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 06 (SPREAD 3 LEFT: DAY 01 / CREATE BRIEF) -->
+        <div class="page-face page-back" data-page="6">
+          <div class="page-turn-shade"></div>
+
+          <!-- WebGL StickerPeel Slot 2: "BUILD THE STAGE · DAY 01" -->
+          <div class="sticker-peel-slot" id="sticker-slot-2"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 01 · DISCOVER & DESIGN</span>
+            <span>SPREAD 03 // LEFT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">DAY 01 · ~3 HOURS PROPOSED</div>
+            <h2 class="display-title section">From Reference<br>to Reality</h2>
+            <p class="body-lead">
+              Participants receive a target developer portfolio or reference website and use an AI coding tool to recreate the experience as closely as possible.
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:9px; margin: 6px 0;">
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <span style="font-family:var(--font-mono); color:var(--accent-warm); font-size:11.5px; font-weight:700;">01</span>
+                <div style="font-size:12.5px; color:var(--text-secondary);">
+                  <strong>Visual Deconstruction:</strong> Inspect the reference website and identify its main sections, layout, typography, and visual hierarchy.
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <span style="font-family:var(--font-mono); color:var(--accent-warm); font-size:11.5px; font-weight:700;">02</span>
+                <div style="font-size:12.5px; color:var(--text-secondary);">
+                  <strong>Iterative Prompting:</strong> Use Antigravity or approved tools to generate components, iterating on the result rather than accepting the first output.
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <span style="font-family:var(--font-mono); color:var(--accent-warm); font-size:11.5px; font-weight:700;">03</span>
+                <div style="font-size:12.5px; color:var(--text-secondary);">
+                  <strong>Local Verification:</strong> Confirm that the website runs smoothly on localhost, with working navigation, clean layout, and responsive styling.
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:flex-start;">
+                <span style="font-family:var(--font-mono); color:var(--accent-warm); font-size:11.5px; font-weight:700;">★</span>
+                <div style="font-size:12.5px; color:var(--text-primary);">
+                  <strong>Midpoint Power-Up:</strong> A surprise feature requirement added halfway through without breaking existing code!
+                </div>
+              </div>
+            </div>
+
+            <div class="editorial-quote">
+              "Day 1 tests how well participants direct and refine an AI coding tool, rather than who can write the longest prompt."
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 01 BRIEF</span>
+            <span>PAGE 06</span>
+          </footer>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 03:
+           Front: Page 7 (Spread 3 Right: Day 01 / CREATE Schedule & Deliverable)
+           Back:  Page 8 (Spread 4 Left: Day 02 / CONNECT Brief)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-3" data-sheet="3">
+        <!-- FRONT: PAGE 07 (SPREAD 3 RIGHT: DAY 01 SCHEDULE & DELIVERABLE) -->
+        <div class="page-face page-front" data-page="7">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 01 SCHEDULE</span>
+            <span>SPREAD 03 // RIGHT</span>
+          </header>
+
+          <div class="page-content">
+            <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); text-transform:uppercase;">
+              PROPOSED 3-HOUR SESSION BREAKDOWN:
+            </span>
+
+            <table class="editorial-table">
+              <tbody>
+                <tr>
+                  <td class="col-highlight">00:00–00:30</td>
+                  <td><strong>Inauguration & Masterclass</strong><br><span style="font-size:11px; color:var(--text-muted);">AI-assisted building paradigms, workflow setup & Antigravity overview</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">00:30–00:45</td>
+                  <td><strong>Reveal Reference Target</strong><br><span style="font-size:11px; color:var(--text-muted);">All teams receive the benchmark brief and inspection guidelines simultaneously</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">00:45–02:40</td>
+                  <td><strong>Recreation Sprint</strong><br><span style="font-size:11px; color:var(--text-muted);">Hands-on coding sprint with midpoint power-up requirement inject</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">02:40–03:00</td>
+                  <td><strong>Submission & Review</strong><br><span style="font-size:11px; color:var(--text-muted);">Localhost demo capture, peer review, and learning reflections log</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin-top:12px;">
+              <h4 style="font-family:var(--font-display); font-size:12px; color:var(--text-primary); margin-bottom:5px;">
+                DAY 1 PRIMARY DELIVERABLE:
+              </h4>
+              <p style="font-size:11.5px; color:var(--text-secondary); margin:0;">
+                A working local website that serves as the foundation for the team's later agent integration. Pure frontend mastery — no backend or database required yet!
+              </p>
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 01 COMPLETE SPREAD</span>
+            <span>PAGE 07</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 08 (SPREAD 4 LEFT: DAY 02 / CONNECT BRIEF) -->
+        <div class="page-face page-back" data-page="8">
+          <div class="page-turn-shade"></div>
+
+          <!-- WebGL StickerPeel Slot 3: "THINK → ACT → VERIFY" -->
+          <div class="sticker-peel-slot" id="sticker-slot-3"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 02 · LEARN & CONNECT</span>
+            <span>SPREAD 04 // LEFT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">DAY 02 · ~2 HOURS PROPOSED</div>
+            <h2 class="display-title section">Teach the<br>Interface to Act</h2>
+            <p class="body-lead">
+              Day 2 is the technical bridge. Participants understand what an agent does, inspect a working example, and modify a simple workflow that classifies messages and returns structured results.
+            </p>
+
+            <div style="background:var(--card-surface); border:1px solid var(--accent-border); border-radius:6px; padding:12px; margin:8px 0;">
+              <h4 style="font-family:var(--font-display); font-size:12px; color:var(--accent-warm); margin-bottom:5px;">
+                THE MINIMUM WORKING AGENT PATTERN
+              </h4>
+              <p style="font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); line-height:1.65; margin:0;">
+                1. Input message received from user chat<br>
+                2. AI model interprets & outputs structured JSON<br>
+                3. Application validates schema & safety guardrails<br>
+                4. Approved tool mutates simulated application state<br>
+                5. Website visibly reflects the updated result
+              </p>
+            </div>
+
+            <p class="body-copy">
+              Memory, multi-agent networks, databases, webhooks, and production cloud deployment are demonstrations or optional extensions — not prerequisites.
+            </p>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 02 BRIEF</span>
+            <span>PAGE 08</span>
+          </footer>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 04:
+           Front: Page 9 (Spread 4 Right: Day 02 / CONNECT Schedule & Tech)
+           Back:  Page 10 (Spread 5 Left: Day 03 / CONDUCT Brief)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-4" data-sheet="4">
+        <!-- FRONT: PAGE 09 (SPREAD 4 RIGHT: DAY 02 SCHEDULE & TECH OPTIONS) -->
+        <div class="page-face page-front" data-page="9">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 02 SCHEDULE</span>
+            <span>SPREAD 04 // RIGHT</span>
+          </header>
+
+          <div class="page-content">
+            <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); text-transform:uppercase;">
+              PROPOSED 2-HOUR HANDS-ON SCHEDULE:
+            </span>
+
+            <table class="editorial-table">
+              <tbody>
+                <tr>
+                  <td class="col-highlight">00:00–00:20</td>
+                  <td><strong>Agent Concepts</strong><br><span style="font-size:11px; color:var(--text-muted);">Chatbots vs. Agents; the conductor mental model</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">00:20–00:40</td>
+                  <td><strong>Live Tool Demonstration</strong><br><span style="font-size:11px; color:var(--text-muted);">Watch how an instruction leads to an approved tool action</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">00:40–01:05</td>
+                  <td><strong>Guided Workflow Build</strong><br><span style="font-size:11px; color:var(--text-muted);">Build/inspect the basic message-classification workflow</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">01:05–01:35</td>
+                  <td><strong>Team Modification Exercise</strong><br><span style="font-size:11px; color:var(--text-muted);">Modify instructions, output fields, or routing rules</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">01:35–02:00</td>
+                  <td><strong>Edge-Case Testing & Briefing</strong><br><span style="font-size:11px; color:var(--text-muted);">Try ambiguous inputs; introduce the Day 3 challenge</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="matrix-grid" style="margin-top:10px;">
+              <div class="matrix-card">
+                <strong style="color:var(--text-primary); font-size:11.5px; display:block;">Option A: Local Backend</strong>
+                <p>Gemini API key kept private in local service. Direct localhost integration.</p>
+              </div>
+              <div class="matrix-card">
+                <strong style="color:var(--text-primary); font-size:11.5px; display:block;">Option B: n8n Visual</strong>
+                <p>Visual workflow editor; great for inspecting node paths and routing visually.</p>
+              </div>
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 02 COMPLETE SPREAD</span>
+            <span>PAGE 09</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 10 (SPREAD 5 LEFT: DAY 03 / CONDUCT BRIEF & SURPRISE) -->
+        <div class="page-face page-back" data-page="10">
+          <div class="page-turn-shade"></div>
+
+          <!-- WebGL StickerPeel Slot 4: "SURPRISE PROOF · CONDUCTOR" -->
+          <div class="sticker-peel-slot" id="sticker-slot-4"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 03 · BUILD, ADAPT & PERFORM</span>
+            <span>SPREAD 05 // LEFT</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">FULL DAY MAIN EVENT</div>
+            <h2 class="display-title section">Build Something<br>That Responds</h2>
+            <p class="body-lead">
+              Teams implement their agent workflow inside their local application, stress-test it against edge cases, survive a live surprise scenario, and demonstrate live to judges.
+            </p>
+
+            <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:12px; margin:8px 0;">
+              <h4 style="font-family:var(--font-display); font-size:12px; color:var(--accent-warm); margin-bottom:4px;">
+                THE 14:15 SURPRISE SCENARIO
+              </h4>
+              <p class="body-copy" style="font-size:12px; margin:0;">
+                The surprise tests whether teams built a robust baseline rather than repeating a rehearsed script. E.g., an unexpected input that omits a required field, conflicting data, or an unknown identifier requiring human escalation.
+              </p>
+            </div>
+
+            <div class="editorial-quote" style="margin-top:10px;">
+              "A live working demonstration beats twenty slides. Judges will test your system with live, unfamiliar inputs directly on your laptop."
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 03 BRIEF</span>
+            <span>PAGE 10</span>
+          </footer>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           SHEET 05:
+           Front: Page 11 (Spread 5 Right: Day 03 Schedule & Real Skills)
+           Back:  Page 12 (Spread 6 Left: Back Cover & Invitation)
+           ====================================================================== -->
+      <div class="paper-sheet" id="sheet-5" data-sheet="5">
+        <!-- FRONT: PAGE 11 (SPREAD 5 RIGHT: DAY 03 SCHEDULE & TANGIBLE SKILLS) -->
+        <div class="page-face page-front" data-page="11">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>DAY 03 SCHEDULE & OUTCOMES</span>
+            <span>SPREAD 05 // RIGHT</span>
+          </header>
+
+          <div class="page-content">
+            <span style="font-family:var(--font-mono); font-size:10px; color:var(--accent-warm); text-transform:uppercase;">
+              PROPOSED FULL-DAY AGENDA:
+            </span>
+
+            <table class="editorial-table">
+              <tbody>
+                <tr>
+                  <td class="col-highlight">09:00–10:00</td>
+                  <td><strong>Scenario Reveal & Architecture</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Starter template walkthrough, schemas & permitted actions</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">10:00–12:00</td>
+                  <td><strong>Build & Test Sprint</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Core workflow implementation and frontend integration</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">12:00–13:00</td>
+                  <td><strong>Lunch & Checkpoint</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Resolve blockers & confirm working baselines</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">13:00–14:15</td>
+                  <td><strong>Refine & Harden</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Improve interface clarity, error handling & resilience</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight" style="color:var(--accent-warm);">14:15–15:15</td>
+                  <td><strong>Surprise & Adapt</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Unseen edge-case injected; 45-min sprint to update routing</span></td>
+                </tr>
+                <tr>
+                  <td class="col-highlight">15:30–17:30</td>
+                  <td><strong>Live Judging & Awards</strong><br><span style="font-size:10.5px; color:var(--text-muted);">Live demonstrations on laptops, Q&A, and closing awards</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="background:var(--card-surface); border:1px solid var(--border-subtle); border-radius:6px; padding:11px; margin-top:10px;">
+              <strong style="color:var(--accent-warm); font-size:11.5px; display:block;">CORE TAKEAWAY</strong>
+              <p style="font-size:11.5px; color:var(--text-secondary); margin:2px 0 0 0;">
+                You leave with a clear mental model of agents, frontend speed, failure-aware validation thinking, and a working portfolio prototype.
+              </p>
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>DAY 03 COMPLETE SPREAD</span>
+            <span>PAGE 11</span>
+          </footer>
+        </div>
+
+        <!-- BACK: PAGE 12 (BACK COVER / INVITATION) -->
+        <div class="page-face page-back" data-page="12">
+          <div class="page-turn-shade"></div>
+
+          <header class="page-meta">
+            <span class="meta-tag"><span class="tag-dot"></span>THE INVITATION</span>
+            <span>SPREAD 06 // FINALE</span>
+          </header>
+
+          <div class="page-content">
+            <div class="pill-badge">CODERS’ CLUB CALL TO ACTION</div>
+            <h2 class="display-title hero" style="font-size: clamp(28px, 3vw, 40px);">
+              Don’t Just<br>Prompt The Future.<br>Conduct It.
+            </h2>
+            <p class="body-lead">
+              Create the interface. Connect the workflow. Build something that genuinely responds.
+            </p>
+
+            <div class="editorial-quote" style="margin:10px 0;">
+              "Prompting is passive. Conducting is engineering."
+            </div>
+
+            <div class="logistics-card">
+              <h4 style="font-family:var(--font-display); font-size:12px; color:var(--accent-warm); margin-bottom:8px; text-transform:uppercase;">
+                CONFIRM WITH ORGANISERS
+              </h4>
+              <div class="logistics-grid">
+                <div class="logistics-item">
+                  <span>HOST CLUB</span>
+                  <strong>[CODERS’ CLUB]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>DATES</span>
+                  <strong style="color:var(--accent-warm);">[EVENT DATE — 3 DAYS]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>CAMPUS VENUE</span>
+                  <strong>[CAMPUS LAB / VENUE]</strong>
+                </div>
+                <div class="logistics-item">
+                  <span>REGISTRATION</span>
+                  <strong style="color:var(--accent-warm);">[REGISTRATION LINK]</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer class="page-footer-folio">
+            <span>OFFICIAL EVENT PUBLICATION</span>
+            <span>PAGE 12</span>
+          </footer>
+        </div>
+      </div>
+
+    </div><!-- /.book-chassis -->
+  </main>
+
+  <!-- ==========================================================================
+       BOTTOM DOCK CONTROLS
+       ========================================================================== -->
+  <footer class="app-footer" role="navigation" aria-label="Book page navigation controls">
+    <div class="nav-controls">
+      <button class="btn-nav" id="btnPrev" aria-label="Previous page" title="Turn page backward (Left arrow)">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div class="spread-indicator">
+        <span class="curr-page-text" id="currPageDisplay">Cover (Page 1)</span>
+        <span style="color:var(--text-muted);">·</span>
+        <span style="color:var(--text-muted);" id="sheetCounter">Spread 1 / 7</span>
+      </div>
+
+      <button class="btn-nav" id="btnNext" aria-label="Next page" title="Turn page forward (Right arrow)">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="scrubber-track" id="scrubberTrack" title="Click along bar to jump through pages">
+        <div class="scrubber-fill" id="scrubberFill"></div>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <div class="kbd-hint">
+        <span>Turn:</span>
+        <kbd>←</kbd>
+        <kbd>→</kbd>
+        <span>Keys / Swipe</span>
+      </div>
+      <button class="btn-header" id="btnFirstSheet" title="Jump to Front Cover">Cover</button>
+      <button class="btn-header" id="btnLastSheet" title="Jump to Back Cover">Back</button>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       TABLE OF CONTENTS (DRAWER)
+       ========================================================================== -->
+  <div class="toc-modal-backdrop" id="tocBackdrop" role="dialog" aria-modal="true" aria-label="Table of Contents">
+    <div class="toc-card">
+      <div class="toc-header">
+        <h3>Brochure Index · 12 Pages</h3>
+        <button class="btn-close-toc" id="btnCloseToc" aria-label="Close table of contents">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="toc-grid" id="tocGrid">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       ENGINE JS: SPREAD-BY-DAY ARCHITECTURE, MOBILE VIEW & STICKER PEEL WEBGL
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ------------------------------------------------------------------------
+      // Responsive State: Desktop Spreads (7) vs Mobile Single Pages (12)
+      // ------------------------------------------------------------------------
+      const TOTAL_SHEETS = 6;
+      let flippedCount = 0; // 0 = Cover; 6 = Back Cover (Desktop)
+      let mobilePage = 1;   // 1 to 12 (Mobile)
+      let isMobile = window.innerWidth <= 768;
+      let soundEnabled = true;
+
+      const pageMap = [
+        { flipped: 0, text: "Front Cover (Page 1)", desc: "AI AGENT ORCHESTRA · Master Brief" },
+        { flipped: 1, text: "Pages 2 & 3 · Concept & Metaphor", desc: "The Maestro's Score & What is an AI Agent?" },
+        { flipped: 2, text: "Pages 4 & 5 · Workflow & Journey", desc: "Execution Pipeline & The Three-Day Arc" },
+        { flipped: 3, text: "Pages 6 & 7 · DAY 01 / CREATE", desc: "From Reference to Reality · Brief & Schedule" },
+        { flipped: 4, text: "Pages 8 & 9 · DAY 02 / CONNECT", desc: "Teach the Interface to Act · Brief & Schedule" },
+        { flipped: 5, text: "Pages 10 & 11 · DAY 03 / CONDUCT", desc: "Build Something That Responds · Brief & Schedule" },
+        { flipped: 6, text: "Back Cover (Page 12)", desc: "The Invitation & Official Coordinates" }
+      ];
+
+      const mobilePageTitles = [
+        "Front Cover (Page 1)",
+        "The Maestro's Score (Page 2)",
+        "What is an AI Agent? (Page 3)",
+        "Execution Pipeline (Page 4)",
+        "The Three-Day Journey (Page 5)",
+        "Day 01 Brief (Page 6)",
+        "Day 01 Schedule (Page 7)",
+        "Day 02 Brief (Page 8)",
+        "Day 02 Schedule (Page 9)",
+        "Day 03 Brief (Page 10)",
+        "Day 03 Schedule (Page 11)",
+        "Back Cover (Page 12)"
+      ];
+
+      // DOM Elements
+      const sheets = [
+        document.getElementById('sheet-0'),
+        document.getElementById('sheet-1'),
+        document.getElementById('sheet-2'),
+        document.getElementById('sheet-3'),
+        document.getElementById('sheet-4'),
+        document.getElementById('sheet-5')
+      ];
+
+      const allPageFaces = document.querySelectorAll('.page-face');
+      const currPageDisplay = document.getElementById('currPageDisplay');
+      const sheetCounter = document.getElementById('sheetCounter');
+      const scrubberFill = document.getElementById('scrubberFill');
+      const scrubberTrack = document.getElementById('scrubberTrack');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const btnFirstSheet = document.getElementById('btnFirstSheet');
+      const btnLastSheet = document.getElementById('btnLastSheet');
+      const btnGoHome = document.getElementById('btnGoHome');
+      const btnOpenToc = document.getElementById('btnOpenToc');
+      const btnCloseToc = document.getElementById('btnCloseToc');
+      const tocBackdrop = document.getElementById('tocBackdrop');
+      const tocGrid = document.getElementById('tocGrid');
+      const btnAudioToggle = document.getElementById('btnAudioToggle');
+      const audioLabel = document.getElementById('audioLabel');
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      const themeLabel = document.getElementById('themeLabel');
+      const themeIcon = document.getElementById('themeIcon');
+
+      // ------------------------------------------------------------------------
+      // Theme Switcher (Dark vs. Light / Ivory Paper)
+      // ------------------------------------------------------------------------
+      let currentTheme = 'dark';
+      function setTheme(theme) {
+        currentTheme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        themeLabel.textContent = theme === 'dark' ? 'Theme: Dark' : 'Theme: Light';
+        
+        if (theme === 'dark') {
+          themeIcon.innerHTML = `
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          `;
+        } else {
+          themeIcon.innerHTML = `
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          `;
+        }
+      }
+
+      btnThemeToggle.addEventListener('click', () => {
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+      // ------------------------------------------------------------------------
+      // Web Audio API Synthesizer (Realistic Paper Turn Sound)
+      // ------------------------------------------------------------------------
+      let audioCtx = null;
+      function playPaperTurnSound() {
+        if (!soundEnabled) return;
+        try {
+          if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+
+          const now = audioCtx.currentTime;
+          const bufferSize = audioCtx.sampleRate * 0.15;
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+
+          let b0 = 0, b1 = 0, b2 = 0;
+          for (let i = 0; i < bufferSize; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            data[i] = (b0 + b1 + b2) * 0.25;
+          }
+
+          const noiseSource = audioCtx.createBufferSource();
+          noiseSource.buffer = buffer;
+
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1300, now);
+          filter.frequency.exponentialRampToValueAtTime(380, now + 0.14);
+          filter.Q.setValueAtTime(2.2, now);
+
+          const gain = audioCtx.createGain();
+          gain.gain.setValueAtTime(0.01, now);
+          gain.gain.linearRampToValueAtTime(0.16, now + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+          noiseSource.connect(filter);
+          filter.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          noiseSource.start(now);
+          noiseSource.stop(now + 0.15);
+        } catch (e) {}
+      }
+
+      btnAudioToggle.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        audioLabel.textContent = soundEnabled ? 'Sound: On' : 'Sound: Muted';
+        btnAudioToggle.classList.toggle('active', soundEnabled);
+        if (soundEnabled) playPaperTurnSound();
+      });
+
+      // ------------------------------------------------------------------------
+      // Desktop: 3D Spine-Hinged Spread Turn Engine
+      // ------------------------------------------------------------------------
+      function updateDesktopSheetZIndices() {
+        sheets.forEach((sheet, idx) => {
+          if (idx < flippedCount) {
+            sheet.classList.add('flipped');
+            sheet.style.zIndex = 10 + idx;
+
+            if (idx === flippedCount - 1) {
+              sheet.style.visibility = 'visible';
+              sheet.style.pointerEvents = 'auto';
+            } else {
+              sheet.style.visibility = 'hidden';
+              sheet.style.pointerEvents = 'none';
+            }
+          } else {
+            sheet.classList.remove('flipped');
+            sheet.style.zIndex = 10 + (TOTAL_SHEETS - idx);
+
+            if (idx === flippedCount) {
+              sheet.style.visibility = 'visible';
+              sheet.style.pointerEvents = 'auto';
+            } else {
+              sheet.style.visibility = 'hidden';
+              sheet.style.pointerEvents = 'none';
+            }
+          }
+        });
+
+        const state = pageMap[flippedCount];
+        currPageDisplay.textContent = state.text;
+        sheetCounter.textContent = `Spread ${flippedCount + 1} / 7`;
+
+        const pct = (flippedCount / TOTAL_SHEETS) * 100;
+        scrubberFill.style.width = `${Math.max(8.33, pct)}%`;
+
+        btnPrev.disabled = flippedCount === 0;
+        btnNext.disabled = flippedCount === TOTAL_SHEETS;
+      }
+
+      // ------------------------------------------------------------------------
+      // Mobile: View One Page At a Time Engine
+      // ------------------------------------------------------------------------
+      function goToMobilePage(targetPage) {
+        mobilePage = Math.min(12, Math.max(1, targetPage));
+
+        allPageFaces.forEach(face => {
+          const pageNum = parseInt(face.dataset.page, 10);
+          if (pageNum === mobilePage) {
+            face.classList.add('mobile-active');
+          } else {
+            face.classList.remove('mobile-active');
+          }
+        });
+
+        currPageDisplay.textContent = `Page ${String(mobilePage).padStart(2, '0')} / 12`;
+        sheetCounter.textContent = mobilePageTitles[mobilePage - 1];
+
+        const pct = ((mobilePage - 1) / 11) * 100;
+        scrubberFill.style.width = `${Math.max(8.33, pct)}%`;
+
+        btnPrev.disabled = mobilePage === 1;
+        btnNext.disabled = mobilePage === 12;
+
+        playPaperTurnSound();
+      }
+
+      // ------------------------------------------------------------------------
+      // Unified Navigation Dispatcher (Desktop vs Mobile)
+      // ------------------------------------------------------------------------
+      function navForward() {
+        if (isMobile) {
+          if (mobilePage < 12) goToMobilePage(mobilePage + 1);
+        } else {
+          if (flippedCount < TOTAL_SHEETS) {
+            const turningSheet = sheets[flippedCount];
+            const upcomingSheet = sheets[flippedCount + 1];
+
+            turningSheet.style.zIndex = 60;
+            turningSheet.style.visibility = 'visible';
+            turningSheet.style.pointerEvents = 'none';
+
+            if (upcomingSheet) upcomingSheet.style.visibility = 'visible';
+
+            playPaperTurnSound();
+            flippedCount++;
+            turningSheet.classList.add('flipped');
+            setTimeout(updateDesktopSheetZIndices, 400);
+          }
+        }
+      }
+
+      function navBackward() {
+        if (isMobile) {
+          if (mobilePage > 1) goToMobilePage(mobilePage - 1);
+        } else {
+          if (flippedCount > 0) {
+            flippedCount--;
+            const returningSheet = sheets[flippedCount];
+            const underlyingSheet = sheets[flippedCount - 1];
+
+            returningSheet.style.zIndex = 60;
+            returningSheet.style.visibility = 'visible';
+            returningSheet.style.pointerEvents = 'none';
+
+            if (underlyingSheet) underlyingSheet.style.visibility = 'visible';
+
+            playPaperTurnSound();
+            returningSheet.classList.remove('flipped');
+            setTimeout(updateDesktopSheetZIndices, 400);
+          }
+        }
+      }
+
+      function jumpToState(targetFlipped) {
+        if (isMobile) {
+          // Map flipped spread to corresponding representative mobile page
+          const targetMobilePage = targetFlipped === 0 ? 1 : targetFlipped * 2;
+          goToMobilePage(targetMobilePage);
+        } else {
+          if (targetFlipped < 0 || targetFlipped > TOTAL_SHEETS) return;
+          playPaperTurnSound();
+          flippedCount = targetFlipped;
+          updateDesktopSheetZIndices();
+        }
+      }
+
+      // Responsive Mode Synchronizer on Resize
+      function handleResize() {
+        const nextIsMobile = window.innerWidth <= 768;
+        if (nextIsMobile !== isMobile) {
+          isMobile = nextIsMobile;
+          if (isMobile) {
+            // Transitioning to mobile: sync mobile page from current desktop spread
+            const derivedPage = flippedCount === 0 ? 1 : flippedCount * 2;
+            goToMobilePage(derivedPage);
+          } else {
+            // Transitioning to desktop: sync desktop spread from current mobile page
+            allPageFaces.forEach(f => f.classList.remove('mobile-active'));
+            flippedCount = mobilePage === 1 ? 0 : Math.floor(mobilePage / 2);
+            updateDesktopSheetZIndices();
+          }
+        }
+      }
+      window.addEventListener('resize', handleResize);
+
+      // Sheet Click Turn (Desktop)
+      sheets.forEach((sheet, idx) => {
+        sheet.addEventListener('click', (e) => {
+          if (isMobile) return;
+          if (e.target.closest('button') || e.target.closest('.pipeline-step-item') || e.target.closest('.sticker-peel-hit')) {
+            return;
+          }
+
+          if (sheet.classList.contains('flipped')) {
+            if (idx === flippedCount - 1) navBackward();
+          } else {
+            if (idx === flippedCount) navForward();
+          }
+        });
+      });
+
+      btnNext.addEventListener('click', navForward);
+      btnPrev.addEventListener('click', navBackward);
+      btnFirstSheet.addEventListener('click', () => jumpToState(0));
+      btnLastSheet.addEventListener('click', () => jumpToState(TOTAL_SHEETS));
+      btnGoHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        jumpToState(0);
+      });
+
+      // Scrubber Track Click-to-Jump
+      scrubberTrack.addEventListener('click', (e) => {
+        const rect = scrubberTrack.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const ratio = Math.max(0, Math.min(1, clickX / rect.width));
+        if (isMobile) {
+          const target = Math.round(ratio * 11) + 1;
+          goToMobilePage(target);
+        } else {
+          const target = Math.round(ratio * TOTAL_SHEETS);
+          jumpToState(target);
+        }
+      });
+
+      // Keyboard Arrow Navigation
+      window.addEventListener('keydown', (e) => {
+        if (tocBackdrop.classList.contains('open')) {
+          if (e.key === 'Escape') closeTocModal();
+          return;
+        }
+
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          navForward();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          navBackward();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          jumpToState(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          jumpToState(TOTAL_SHEETS);
+        }
+      });
+
+      // Touch / Swipe Navigation
+      let touchStartX = 0;
+      let touchStartY = 0;
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const touchEndY = e.changedTouches[0].screenY;
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 36) {
+          if (diffX < 0) {
+            navForward();
+          } else {
+            navBackward();
+          }
+        }
+      }, { passive: true });
+
+      // Table of Contents Drawer
+      function populateToc() {
+        tocGrid.innerHTML = '';
+        pageMap.forEach((item, index) => {
+          const card = document.createElement('div');
+          const isActive = isMobile
+            ? (mobilePage === (item.flipped === 0 ? 1 : item.flipped * 2))
+            : (item.flipped === flippedCount);
+
+          card.className = `toc-item ${isActive ? 'active' : ''}`;
+          card.setAttribute('role', 'button');
+          card.setAttribute('tabindex', '0');
+          card.innerHTML = `
+            <span class="toc-item-num">SPREAD 0${index + 1}</span>
+            <h4 class="toc-item-title">${item.text}</h4>
+            <p class="toc-item-desc">${item.desc}</p>
+          `;
+          card.addEventListener('click', () => {
+            jumpToState(item.flipped);
+            closeTocModal();
+          });
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              jumpToState(item.flipped);
+              closeTocModal();
+            }
+          });
+          tocGrid.appendChild(card);
+        });
+      }
+
+      function openTocModal() {
+        populateToc();
+        tocBackdrop.classList.add('open');
+        btnOpenToc.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeTocModal() {
+        tocBackdrop.classList.remove('open');
+        btnOpenToc.setAttribute('aria-expanded', 'false');
+      }
+
+      btnOpenToc.addEventListener('click', openTocModal);
+      btnCloseToc.addEventListener('click', closeTocModal);
+      tocBackdrop.addEventListener('click', (e) => {
+        if (e.target === tocBackdrop) closeTocModal();
+      });
+
+      // Pipeline Terminal Simulator
+      const pipelineSteps = document.querySelectorAll('.pipeline-step-item');
+      const pipelineTerminal = document.getElementById('pipelineTerminal');
+      const pipelineData = {
+        1: `// Stage 1: Input Captured\n{\n  "raw_input": "Sensor-04 reporting abnormal heat spike of 82°C",\n  "timestamp": "2026-10-13T21:40:00Z",\n  "source": "operator_console"\n}`,
+        2: `// Stage 2: AI Interpretation\n{\n  "inferred_asset": "Sensor-04",\n  "severity": "CRITICAL",\n  "suggested_action": "isolate_circuit_and_alert_crew",\n  "confidence_score": 0.94\n}`,
+        3: `// Stage 3: Boundary Validation & Rules\n{\n  "asset_exists_in_registry": true,\n  "temperature_threshold_exceeded": true,\n  "action_permitted_by_policy": true,\n  "approval_status": "PASSED_GUARDRAILS"\n}`,
+        4: `// Stage 4: Approved Tool Execution\n{\n  "tool_executed": "updateAssetTelemetryStatus",\n  "parameters": { "asset_id": "Sensor-04", "status": "ISOLATED_CRITICAL" },\n  "result": "SUCCESS_RECORD_MUTATED"\n}`,
+        5: `// Stage 5: Visible Result in UI\n{\n  "ui_card_updated": "Sensor-04",\n  "indicator_color": "#D9883B",\n  "audio_alert_dispatched": true,\n  "log_entry_added": "Sensor-04 isolated at 21:40 by Agent"\n}`
+      };
+
+      pipelineSteps.forEach(step => {
+        step.addEventListener('click', () => {
+          pipelineSteps.forEach(s => s.classList.remove('active'));
+          step.classList.add('active');
+          const stepNum = step.dataset.step;
+          pipelineTerminal.textContent = pipelineData[stepNum] || '';
+        });
+      });
+
+      // ========================================================================
+      // STICKER PEEL WEBGL 2 ENGINE (INTEGRATED FROM REACT BITS COMPONENT)
+      // ========================================================================
+      const GRID = 96;
+      const PAD = 0.18;
+      const MAX_TEXTURE = 1024;
+      const MASK_SIZE = 96;
+      const LIGHT_HEIGHT = 260;
+      const FINISHES = { gloss: 0, matte: 1, holo: 2 };
+      let stickerStack = 20;
+
+      const PEEL_VERTEX = `#version 300 es
+in vec2 aGrid;
+uniform vec2 uCanvas;
+uniform vec2 uMesh;
+uniform vec2 uCenter;
+uniform vec2 uDir;
+uniform float uFold;
+uniform float uRadius;
+uniform float uAngle;
+uniform float uScale;
+uniform float uLift;
+uniform int uPass;
+uniform vec2 uShadowOffset;
+uniform vec2 uShadowSlope;
+out vec2 vUv;
+out float vFold;
+out vec3 vNormal;
+out vec3 vPos;
+out float vHeight;
+out float vCurl;
+const float PI = 3.14159265;
+
+void main() {
+  vec2 local = (aGrid - 0.5) * uMesh;
+  float s = dot(local, uDir);
+  float d = uFold - s;
+  vec3 normal = vec3(0.0, 0.0, 1.0);
+  float z = 0.0;
+  vec2 p = local;
+  if (d > 0.0) {
+    float theta = d / uRadius;
+    float along = uFold + d - PI * uRadius;
+    z = 2.0 * uRadius;
+    normal = vec3(0.0, 0.0, -1.0);
+    if (theta < PI) {
+      along = uFold - uRadius * sin(theta);
+      z = uRadius * (1.0 - cos(theta));
+      normal = vec3(uDir * sin(theta), cos(theta));
+    }
+    p += (along - s) * uDir;
+  }
+  float c = cos(uAngle);
+  float sn = sin(uAngle);
+  vec2 turned = vec2(c * p.x - sn * p.y, sn * p.x + c * p.y) * uScale;
+  vNormal = vec3(c * normal.x - sn * normal.y, sn * normal.x + c * normal.y, normal.z);
+  vUv = aGrid;
+  vFold = d;
+  vCurl = z * uScale;
+  float height = z * uScale + uLift;
+  vec2 screen = uCenter + turned;
+  float depth = 0.0;
+  if (uPass == 0 || uPass == 2) {
+    vHeight = uPass == 0 ? height : z * uScale;
+    screen += uShadowOffset + uShadowSlope * vHeight;
+  } else {
+    vHeight = height;
+    depth = clamp(-height / 1000.0, -1.0, 1.0);
+  }
+  vPos = vec3(uCenter + turned, height);
+  gl_Position = vec4(screen.x / uCanvas.x * 2.0 - 1.0, 1.0 - screen.y / uCanvas.y * 2.0, depth, 1.0);
+}`;
+
+      const PEEL_FRAGMENT = `#version 300 es
+precision highp float;
+precision highp int;
+uniform sampler2D uImage;
+uniform int uPass;
+uniform int uFinish;
+uniform vec3 uBack;
+uniform vec3 uLight;
+uniform float uShine;
+uniform float uShadow;
+uniform float uTexel;
+uniform float uLod;
+uniform float uRadius;
+uniform vec2 uGlint;
+in vec2 vUv;
+in float vFold;
+in vec3 vNormal;
+in vec3 vPos;
+in float vHeight;
+in float vCurl;
+out vec4 outColor;
+
+float hash(vec2 p) {
+  vec3 q = fract(vec3(p.xyx) * 0.1031);
+  q += dot(q, q.yzx + 33.33);
+  return fract((q.x + q.y) * q.z);
+}
+
+vec3 spectrum(float t) {
+  t = fract(t) * 6.0;
+  vec3 a = vec3(1.0, 0.478, 0.46);
+  vec3 b = vec3(1.0, 0.928, 0.38);
+  vec3 c = vec3(0.659, 1.0, 0.38);
+  vec3 d = vec3(0.52, 1.0, 0.968);
+  vec3 e = vec3(0.48, 0.584, 1.0);
+  vec3 f = vec3(0.68, 0.52, 1.0);
+  if (t < 1.0) return mix(a, b, t);
+  if (t < 2.0) return mix(b, c, t - 1.0);
+  if (t < 3.0) return mix(c, d, t - 2.0);
+  if (t < 4.0) return mix(d, e, t - 3.0);
+  if (t < 5.0) return mix(e, f, t - 4.0);
+  return mix(f, a, t - 5.0);
+}
+
+float bars(float t) {
+  t = fract(t) * 12.0;
+  if (t < 3.8) return mix(0.08, 0.6, t / 3.8);
+  if (t < 4.5) return mix(0.6, 0.72, (t - 3.8) / 0.7);
+  if (t < 5.2) return mix(0.72, 0.6, (t - 4.5) / 0.7);
+  if (t < 10.0) return mix(0.6, 0.08, (t - 5.2) / 4.8);
+  return 0.08;
+}
+
+void main() {
+  if (uPass == 0) {
+    float alpha;
+    if (vFold > 0.0) {
+      alpha = textureLod(uImage, vUv, log2(max(1.5 * uTexel, 1.0))).a * (1.0 - smoothstep(0.0, uRadius, vCurl));
+    } else {
+      alpha = textureLod(uImage, vUv, log2(max((1.2 + vHeight * 0.55) * uTexel, 1.0))).a;
+    }
+    outColor = vec4(0.0, 0.0, 0.0, alpha * uShadow / (1.0 + vHeight * 0.03));
+    return;
+  }
+  if (uPass == 2) {
+    if (vFold <= 0.0) discard;
+    float alpha = textureLod(uImage, vUv, log2(max(uTexel, 1.0))).a * smoothstep(0.0, uRadius, vCurl);
+    outColor = vec4(alpha);
+    return;
+  }
+  if (uPass == 1 && vFold > 0.0) discard;
+  if (uPass == 3 && vFold <= 0.0) discard;
+  vec4 art = textureLod(uImage, vUv, uLod);
+  if (art.a < 0.004) discard;
+  bool front = vNormal.z >= 0.0;
+  vec3 n = normalize(front ? vNormal : -vNormal);
+  vec3 toLight = normalize(uLight - vPos);
+  vec3 halfway = normalize(toLight + vec3(0.0, 0.0, 1.0));
+  float diffuse = max(dot(n, toLight), 0.0);
+  float nh = max(dot(n, halfway), 0.0);
+  vec3 key = normalize(vec3(-0.45, -0.6, 0.66));
+  float shade = clamp(0.5 + 0.25 * dot(n, key) / key.z + 0.25 * n.z, 0.5, front ? 1.0 : 1.08);
+  if (uPass == 1) shade = 1.0;
+  vec3 color;
+  if (!front) {
+    float grain = hash(floor(vUv * 700.0)) * 0.06 - 0.03;
+    color = uBack * (0.7 + 0.3 * diffuse + grain) * art.a + vec3(pow(nh, 24.0) * 0.2 * uShine) * art.a;
+  } else if (uFinish == 1) {
+    color = art.rgb * (0.8 + 0.22 * diffuse) + vec3(pow(nh, 8.0) * 0.08 * uShine) * art.a;
+  } else if (uFinish == 2) {
+    vec3 albedo = art.rgb / art.a;
+    float lum = dot(albedo, vec3(0.299, 0.587, 0.114));
+    float foil = smoothstep(0.5, 0.92, lum);
+    vec2 q = vUv - uGlint;
+    float near = exp(-dot(q, q) * 3.0);
+    float tilt = dot(n.xy, vec2(0.6, 0.8)) * 1.6;
+    vec3 rainbow = spectrum((vUv.x + vUv.y) * 0.85 - (uGlint.x + uGlint.y) * 1.2 + tilt);
+    float streak = bars((vUv.x - vUv.y) * 2.6 + uGlint.x * 1.8 - uGlint.y * 0.6 + tilt * 0.5);
+    float band = smoothstep(0.32, 0.7, streak);
+    vec3 silver = vec3(0.8, 0.82, 0.86) * (0.88 + 0.16 * diffuse);
+    vec3 film = mix(silver, rainbow * 1.08, clamp(band * (0.55 + 0.45 * near) + 0.18 * near, 0.0, 1.0));
+    vec3 ink = albedo * (0.86 + 0.14 * diffuse) + rainbow * band * 0.22 * (0.4 + 0.6 * near);
+    vec3 base = mix(albedo * (0.86 + 0.14 * diffuse), mix(ink, film, foil), uShine * 0.6 + 0.4);
+    vec2 cell = floor(vUv * 180.0);
+    vec2 jitter = vec2(hash(cell), hash(cell + 7.3)) * 0.6 + 0.2;
+    float dist = length(fract(vUv * 180.0) - jitter);
+    vec3 facet = normalize(vec3(vec2(hash(cell + 2.1), hash(cell + 5.7)) * 2.0 - 1.0, 1.6));
+    float glint = pow(max(dot(facet, halfway), 0.0), 60.0) * smoothstep(0.32, 0.05, dist) * step(0.55, hash(cell + 3.1)) * (0.15 + 0.85 * foil);
+    color = (base + spectrum(hash(cell) + uGlint.x) * glint * 1.6 * uShine + vec3(pow(nh, 140.0) * 0.4 * uShine)) * art.a;
+  } else {
+    color = art.rgb * (0.86 + 0.16 * diffuse) + vec3(pow(nh, 220.0) * 0.4 + pow(nh, 24.0) * 0.03) * uShine * art.a;
+  }
+  float bend = uPass == 3 ? smoothstep(0.0, uRadius * 0.6, vCurl) : 0.0;
+  float glare = pow(max(dot(n, normalize(key + vec3(0.0, 0.0, 1.0))), 0.0), 28.0) * bend * (0.18 + 0.3 * uShine);
+  outColor = vec4(min(color * shade + vec3(glare) * art.a, vec3(art.a)), art.a);
+}`;
+
+      const PEEL_POST_VERTEX = `#version 300 es
+out vec2 vUv;
+void main() {
+  vec2 p = vec2(float((gl_VertexID << 1) & 2), float(gl_VertexID & 2));
+  vUv = p;
+  gl_Position = vec4(p * 2.0 - 1.0, 0.0, 1.0);
+}`;
+
+      const PEEL_POST_FRAGMENT = `#version 300 es
+precision highp float;
+uniform sampler2D uSource;
+uniform vec2 uStep;
+uniform float uSigma;
+uniform float uStrength;
+uniform int uMode;
+in vec2 vUv;
+out vec4 outColor;
+
+void main() {
+  if (uMode == 1) {
+    outColor = vec4(0.0, 0.0, 0.0, texture(uSource, vUv).a * uStrength);
+    return;
+  }
+  vec4 sum = vec4(0.0);
+  float total = 0.0;
+  for (int i = -8; i <= 8; i++) {
+    float offset = float(i);
+    float weight = exp(-0.5 * offset * offset / (uSigma * uSigma));
+    sum += texture(uSource, vUv + uStep * offset) * weight;
+    total += weight;
+  }
+  outColor = sum / total;
+}`;
+
+      function compileShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        if (!shader) return null;
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) return shader;
+        gl.deleteShader(shader);
+        return null;
+      }
+
+      function linkProgram(gl, vsSource, fsSource) {
+        const vs = compileShader(gl, gl.VERTEX_SHADER, vsSource);
+        const fs = compileShader(gl, gl.FRAGMENT_SHADER, fsSource);
+        const prg = gl.createProgram();
+        if (!vs || !fs || !prg) return null;
+        gl.attachShader(prg, vs);
+        gl.attachShader(prg, fs);
+        gl.bindAttribLocation(prg, 0, 'aGrid');
+        gl.linkProgram(prg);
+        gl.deleteShader(vs);
+        gl.deleteShader(fs);
+        if (!gl.getProgramParameter(prg, gl.LINK_STATUS)) {
+          gl.deleteProgram(prg);
+          return null;
+        }
+        const uniforms = {};
+        const count = gl.getProgramParameter(prg, gl.ACTIVE_UNIFORMS);
+        for (let i = 0; i < count; i++) {
+          const info = gl.getActiveUniform(prg, i);
+          if (info) uniforms[info.name] = gl.getUniformLocation(prg, info.name);
+        }
+        return { program: prg, uniforms };
+      }
+
+      function computeConvexHull(pts) {
+        const sorted = [...pts].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        if (sorted.length < 3) return sorted;
+        const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+        const lower = [];
+        sorted.forEach(p => {
+          while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+          lower.push(p);
+        });
+        const upper = [];
+        for (let i = sorted.length - 1; i >= 0; i--) {
+          const p = sorted[i];
+          while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+          upper.push(p);
+        }
+        return lower.slice(0, -1).concat(upper.slice(0, -1));
+      }
+
+      function createStickerPeel(slotElement, config) {
+        const root = document.createElement('div');
+        root.className = 'sticker-peel';
+        const canvas = document.createElement('canvas');
+        canvas.className = 'sticker-peel-canvas';
+        const hit = document.createElement('div');
+        hit.className = 'sticker-peel-hit';
+        root.appendChild(canvas);
+        root.appendChild(hit);
+        slotElement.appendChild(root);
+
+        const gl = canvas.getContext('webgl2', {
+          alpha: true,
+          premultipliedAlpha: true,
+          antialias: true,
+          depth: true
+        });
+
+        if (!gl) {
+          // Fallback if WebGL 2 unavailable
+          const img = document.createElement('img');
+          img.src = config.imageSrc;
+          img.style.width = `${config.width}px`;
+          img.style.pointerEvents = 'auto';
+          img.style.cursor = 'grab';
+          slotElement.appendChild(img);
+          return;
+        }
+
+        const prg = linkProgram(gl, PEEL_VERTEX, PEEL_FRAGMENT);
+        const post = linkProgram(gl, PEEL_POST_VERTEX, PEEL_POST_FRAGMENT);
+        if (!prg || !post) return;
+        const u = prg.uniforms;
+        const pu = post.uniforms;
+
+        const targets = [0, 1].map(() => {
+          const t = gl.createTexture();
+          gl.bindTexture(gl.TEXTURE_2D, t);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          const buf = gl.createFramebuffer();
+          return { texture: t, buffer: buf, width: 0, height: 0 };
+        });
+
+        const vData = new Float32Array((GRID + 1) * (GRID + 1) * 2);
+        for (let y = 0; y <= GRID; y++) {
+          for (let x = 0; x <= GRID; x++) {
+            const i = (y * (GRID + 1) + x) * 2;
+            vData[i] = x / GRID;
+            vData[i + 1] = y / GRID;
+          }
+        }
+        const iData = new Uint16Array(GRID * GRID * 6);
+        let cursor = 0;
+        for (let y = 0; y < GRID; y++) {
+          for (let x = 0; x < GRID; x++) {
+            const a = y * (GRID + 1) + x;
+            const b = a + 1;
+            const c = a + GRID + 1;
+            const d = c + 1;
+            iData.set([a, b, d, a, d, c], cursor);
+            cursor += 6;
+          }
+        }
+
+        const vao = gl.createVertexArray();
+        gl.bindVertexArray(vao);
+        const vBuf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, vBuf);
+        gl.bufferData(gl.ARRAY_BUFFER, vData, gl.STATIC_DRAW);
+        gl.enableVertexAttribArray(0);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        const iBuf = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, iBuf);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, iData, gl.STATIC_DRAW);
+
+        const tex = gl.createTexture();
+        const scratch = document.createElement('canvas');
+        const sCtx = scratch.getContext('2d', { willReadFrequently: true });
+
+        const sticker = { ready: false, aspect: 1, meshX: 1, meshY: 1, texel: 1, mask: null, maskW: 1, maskH: 1, hull: [] };
+        const view = { ratio: Math.min(window.devicePixelRatio || 1, 2), size: 1, density: 0 };
+        const bounds = { width: 1, height: 1 };
+        const sState = {
+          x: 0, y: 0, vx: 0, vy: 0, placed: false, swing: 0, swingV: 0,
+          peel: 0, peelV: 0, lift: 0, liftV: 0, dir: 0, hover: false,
+          local: { x: 0, y: 0 }, press: null, pivotV: { x: 0, y: 0 },
+          light: { x: 0, y: 0, z: LIGHT_HEIGHT }, pointer: { x: 0, y: 0, inside: false },
+          intro: 1
+        };
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          const iw = img.naturalWidth || 1;
+          const ih = img.naturalHeight || 1;
+          const fit = Math.min(1, MAX_TEXTURE / (Math.max(iw, ih) * (1 + 2 * PAD)));
+          const w = Math.max(1, Math.round(iw * fit));
+          const h = Math.max(1, Math.round(ih * fit));
+          const px = Math.round(w * PAD);
+          const py = Math.round(h * PAD);
+          scratch.width = w + px * 2;
+          scratch.height = h + py * 2;
+          sCtx.clearRect(0, 0, scratch.width, scratch.height);
+          sCtx.drawImage(img, px, py, w, h);
+          gl.bindTexture(gl.TEXTURE_2D, tex);
+          gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, scratch);
+          gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+          gl.generateMipmap(gl.TEXTURE_2D);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+          gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+          sticker.aspect = ih / iw;
+          sticker.meshX = scratch.width / w;
+          sticker.meshY = scratch.height / h;
+          sticker.texel = scratch.width;
+
+          const mw = Math.max(8, Math.round(MASK_SIZE * Math.min(1, iw / ih)));
+          const mh = Math.max(8, Math.round(MASK_SIZE * Math.min(1, ih / iw)));
+          scratch.width = mw;
+          scratch.height = mh;
+          sCtx.clearRect(0, 0, mw, mh);
+          sCtx.drawImage(img, 0, 0, mw, mh);
+          const pxls = sCtx.getImageData(0, 0, mw, mh).data;
+          const mask = new Uint8Array(mw * mh).fill(255);
+          const pts = [];
+          for (let y = 0; y < mh; y++) {
+            for (let x = 0; x < mw; x++) {
+              if (pxls[(y * mw + x) * 4 + 3] > 127) {
+                pts.push([(x + 0.5) / mw - 0.5, (y + 0.5) / mh - 0.5]);
+              }
+            }
+          }
+          sticker.mask = mask;
+          sticker.maskW = mw;
+          sticker.maskH = mh;
+          sticker.hull = computeConvexHull(pts);
+          sticker.ready = true;
+          layout();
+          renderLoop();
+        };
+        img.src = config.imageSrc;
+
+        const getH = () => config.width * sticker.aspect;
+        function layout() {
+          bounds.width = Math.max(1, slotElement.clientWidth);
+          bounds.height = Math.max(1, slotElement.clientHeight);
+          const h = getH();
+          const size = Math.ceil(Math.hypot(config.width, h) * 1.16 + 2 * (36 + config.curlRadius));
+          if (size !== view.size) {
+            view.size = size;
+            root.style.width = `${size}px`;
+            root.style.height = `${size}px`;
+            canvas.width = Math.round(size * view.ratio);
+            canvas.height = Math.round(size * view.ratio);
+          }
+          hit.style.width = `${config.width}px`;
+          hit.style.height = `${h}px`;
+          if (!sState.placed) {
+            sState.x = bounds.width / 2;
+            sState.y = bounds.height / 2;
+            sState.light = { x: sState.x - config.width * 0.45, y: sState.y - h * 0.9, z: LIGHT_HEIGHT * 1.6 };
+            sState.placed = true;
+          }
+        }
+
+        function drawGL() {
+          const sz = view.size;
+          root.style.transform = `translate3d(${sState.x - sz / 2}px, ${sState.y - sz / 2}px, 0)`;
+          const ang = config.rotate + sState.swing;
+          const sc = 1 + 0.07 * Math.max(0, sState.lift);
+          hit.style.transform = `translate(-50%, -50%) rotate(${ang}rad) scale(${sc})`;
+
+          gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+          gl.viewport(0, 0, canvas.width, canvas.height);
+          gl.clearColor(0, 0, 0, 0);
+          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+          if (!sticker.ready) return;
+
+          const w = config.width;
+          const h = getH();
+          const dx = -Math.sin(sState.dir);
+          const dy = Math.cos(sState.dir);
+          const peel = Math.min(1, Math.max(0, sState.peel));
+          const fold = -w / 2 + peel * w;
+          const center = sz / 2;
+          const count = GRID * GRID * 6;
+
+          gl.useProgram(prg.program);
+          gl.bindVertexArray(vao);
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, tex);
+          gl.uniform1i(u.uImage, 0);
+          gl.uniform2f(u.uCanvas, sz, sz);
+          gl.uniform2f(u.uMesh, w * sticker.meshX, h * sticker.meshY);
+          gl.uniform2f(u.uCenter, center, center);
+          gl.uniform2f(u.uDir, dx, dy);
+          gl.uniform1f(u.uFold, fold);
+          gl.uniform1f(u.uRadius, config.curlRadius);
+          gl.uniform1f(u.uAngle, ang);
+          gl.uniform1f(u.uScale, sc);
+          gl.uniform1f(u.uLift, sState.lift * 26);
+          gl.uniform2f(u.uShadowOffset, 1.2, 2.4);
+          gl.uniform2f(u.uShadowSlope, 0.28, 0.55);
+          gl.uniform1i(u.uFinish, FINISHES[config.finish] ?? 0);
+          gl.uniform3fv(u.uBack, [0.82, 0.78, 0.73]);
+          gl.uniform3f(u.uLight, sState.light.x - (sState.x - center), sState.light.y - (sState.y - center), sState.light.z);
+          gl.uniform1f(u.uShine, 0.5);
+          gl.uniform1f(u.uShadow, 0.55);
+          gl.uniform1f(u.uTexel, sticker.texel / (w * sticker.meshX));
+          gl.uniform1f(u.uLod, 0);
+          gl.uniform2f(u.uGlint, 0.5, 0.5);
+
+          gl.enable(gl.BLEND);
+          gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+          gl.uniform1i(u.uPass, 0);
+          gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
+          gl.uniform1i(u.uPass, 1);
+          gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
+          if (peel > 0.001) {
+            gl.uniform1i(u.uPass, 3);
+            gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
+          }
+        }
+
+        let animId = 0;
+        let lastT = 0;
+        function renderLoop(t) {
+          const now = t || performance.now();
+          const dt = lastT ? Math.min(1/30, (now - lastT) / 1000) : 1/60;
+          lastT = now;
+
+          const peelTarget = sState.press ? config.peelBackActivePct / 100 : sState.hover ? config.peelBackHoverPct / 100 : 0;
+          sState.peel += (peelTarget - sState.peel) * (1 - Math.exp(-dt * 12));
+          sState.lift += ((sState.press ? 1 : 0) - sState.lift) * (1 - Math.exp(-dt * 10));
+
+          drawGL();
+          animId = requestAnimationFrame(renderLoop);
+        }
+
+        // Pointer Events for Peel & Drag
+        hit.addEventListener('pointerenter', () => { sState.hover = true; });
+        hit.addEventListener('pointerleave', () => { sState.hover = false; });
+        hit.addEventListener('pointerdown', (e) => {
+          sState.press = { x: e.clientX, y: e.clientY };
+          hit.setPointerCapture(e.pointerId);
+          hit.style.cursor = 'grabbing';
+          stickerStack += 1;
+          root.style.zIndex = String(stickerStack);
+        });
+        hit.addEventListener('pointermove', (e) => {
+          if (!sState.press) return;
+          const dx = e.clientX - sState.press.x;
+          const dy = e.clientY - sState.press.y;
+          sState.x += dx;
+          sState.y += dy;
+          sState.press = { x: e.clientX, y: e.clientY };
+        });
+        const onUp = (e) => {
+          if (!sState.press) return;
+          sState.press = null;
+          try { hit.releasePointerCapture(e.pointerId); } catch(err){}
+          hit.style.cursor = 'grab';
+        };
+        hit.addEventListener('pointerup', onUp);
+        hit.addEventListener('pointercancel', onUp);
+      }
+
+      // ------------------------------------------------------------------------
+      // Render Dynamic SVG Badges into StickerPeel Components
+      // ------------------------------------------------------------------------
+      function makeSvgDataUri(svgContent) {
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgContent.trim());
+      }
+
+      // Sticker 1: "YOU CAN DO IT!" - Round Rugged Stamp
+      const sticker1Svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+          <circle cx="100" cy="100" r="92" fill="#D9883B" stroke="#FAF7F0" stroke-width="4"/>
+          <circle cx="100" cy="100" r="82" fill="#141922" stroke="#FAF7F0" stroke-width="2" stroke-dasharray="4 4"/>
+          <path id="curve" d="M 30,100 A 70,70 0 0,1 170,100" fill="none"/>
+          <text fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="16" font-weight="800" letter-spacing="2">
+            <textPath href="#curve" startOffset="50%" text-anchor="middle">YOU CAN DO IT!</textPath>
+          </text>
+          <polygon points="100,56 106,72 122,72 109,82 114,98 100,88 86,98 91,82 78,72 94,72" fill="#D9883B"/>
+          <text x="100" y="125" fill="#FAF7F0" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle" letter-spacing="1">AI CONDUCTOR</text>
+          <text x="100" y="142" fill="#D9883B" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">★ 2026 EDITION ★</text>
+        </svg>
+      `;
+
+      // Sticker 2: "BUILD THE STAGE · DAY 01"
+      const sticker2Svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+          <rect x="15" y="40" width="170" height="120" rx="20" fill="#B25E1B" stroke="#FAF7F0" stroke-width="4"/>
+          <rect x="23" y="48" width="154" height="104" rx="14" fill="#0F131A" stroke="#D9883B" stroke-width="2"/>
+          <text x="100" y="86" fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="15" font-weight="800" text-anchor="middle" letter-spacing="1">BUILD THE STAGE</text>
+          <text x="100" y="112" fill="#D9883B" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="700" text-anchor="middle">DAY 01 // CREATE</text>
+          <line x1="45" y1="126" x2="155" y2="126" stroke="#D9883B" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text x="100" y="140" fill="#FAF7F0" font-family="'JetBrains Mono', monospace" font-size="8.5" text-anchor="middle" letter-spacing="1.5">VERIFIED SPRINT</text>
+        </svg>
+      `;
+
+      // Sticker 3: "THINK → ACT → VERIFY"
+      const sticker3Svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+          <polygon points="100,10 185,55 185,145 100,190 15,145 15,55" fill="#141922" stroke="#D9883B" stroke-width="4"/>
+          <polygon points="100,22 173,61 173,139 100,178 27,139 27,61" fill="#0F131A" stroke="#FAF7F0" stroke-width="1.5"/>
+          <text x="100" y="80" fill="#D9883B" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">DAY 02 · CONNECT</text>
+          <text x="100" y="105" fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="13" font-weight="800" text-anchor="middle">THINK → ACT</text>
+          <text x="100" y="125" fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="13" font-weight="800" text-anchor="middle">→ VERIFY</text>
+          <circle cx="100" cy="148" r="4" fill="#D9883B"/>
+        </svg>
+      `;
+
+      // Sticker 4: "SURPRISE PROOF · CONDUCTOR READY"
+      const sticker4Svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+          <circle cx="100" cy="100" r="90" fill="#D9883B" stroke="#FAF7F0" stroke-width="4"/>
+          <circle cx="100" cy="100" r="76" fill="#1B222E" stroke="#FAF7F0" stroke-width="2"/>
+          <text x="100" y="78" fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">SURPRISE PROOF</text>
+          <text x="100" y="104" fill="#D9883B" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">14:15 ADAPTATION</text>
+          <text x="100" y="130" fill="#FAF7F0" font-family="'Syne', sans-serif" font-size="12" font-weight="700" text-anchor="middle">DAY 03 FINALE</text>
+          <circle cx="100" cy="148" r="3.5" fill="#FAF7F0"/>
+        </svg>
+      `;
+
+      // Mount Stickers
+      const slot1 = document.getElementById('sticker-slot-1');
+      if (slot1) {
+        createStickerPeel(slot1, {
+          imageSrc: makeSvgDataUri(sticker1Svg),
+          width: 125,
+          rotate: 0.08,
+          finish: 'holo',
+          curlRadius: 12,
+          peelBackHoverPct: 28,
+          peelBackActivePct: 45
+        });
+      }
+
+      const slot2 = document.getElementById('sticker-slot-2');
+      if (slot2) {
+        createStickerPeel(slot2, {
+          imageSrc: makeSvgDataUri(sticker2Svg),
+          width: 120,
+          rotate: -0.06,
+          finish: 'gloss',
+          curlRadius: 10,
+          peelBackHoverPct: 25,
+          peelBackActivePct: 42
+        });
+      }
+
+      const slot3 = document.getElementById('sticker-slot-3');
+      if (slot3) {
+        createStickerPeel(slot3, {
+          imageSrc: makeSvgDataUri(sticker3Svg),
+          width: 120,
+          rotate: 0.05,
+          finish: 'holo',
+          curlRadius: 12,
+          peelBackHoverPct: 26,
+          peelBackActivePct: 44
+        });
+      }
+
+      const slot4 = document.getElementById('sticker-slot-4');
+      if (slot4) {
+        createStickerPeel(slot4, {
+          imageSrc: makeSvgDataUri(sticker4Svg),
+          width: 120,
+          rotate: -0.05,
+          finish: 'gloss',
+          curlRadius: 11,
+          peelBackHoverPct: 25,
+          peelBackActivePct: 42
+        });
+      }
+
+      // Initial View Boot
+      if (isMobile) {
+        goToMobilePage(1);
+      } else {
+        updateDesktopSheetZIndices();
+      }
+      populateToc();
+
+    })();
+  </script>
+</body>
+</html>
